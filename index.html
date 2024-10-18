@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shoe Park</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(to right, #ff7e5f, #feb47b, #6a11cb, #2575fc);
+            color: #fff; /* Change text color to white for better visibility */
+        }
+
+        header {
+            text-align: center;
+            padding: 20px;
+        }
+
+        h1 {
+            animation: fadeIn 1s ease-in-out;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .slogan {
+            font-size: 1.5em;
+            margin-bottom: 20px;
+            animation: fadeIn 2s ease-in-out;
+        }
+
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .shoe-container {
+            border: 2px dashed #fff;
+            padding: 20px;
+            margin: 15px;
+            transition: transform 0.3s;
+            background-color: rgba(255, 255, 255, 0.8);
+            width: 200px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            position: relative;
+            overflow: hidden;
+            color: #333;
+        }
+
+        .shoe-container:hover {
+            transform: scale(1.05);
+        }
+
+        .btn {
+            display: block;
+            padding: 10px;
+            text-align: center;
+            background-color: #333;
+            color: #fff;
+            text-decoration: none;
+            margin-top: 10px;
+            transition: background-color 0.3s;
+        }
+
+        .btn:hover {
+            background-color: #555;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 20px;
+            position: relative;
+            padding: 20px;
+        }
+
+        .cart {
+            margin-top: 10px;
+            font-size: 1.2em;
+            padding: 10px;
+            background-color: rgba(255, 255, 255, 0.8);
+            display: inline-block;
+            border: 1px solid #fff;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .cart-content {
+            display: none;
+            margin-top: 20px;
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            color: #333;
+        }
+
+        .cart-content h3 {
+            margin-top: 0;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .shoe-container {
+                width: 100%;
+                margin: 10px 0;
+            }
+
+            h1 {
+                font-size: 2em;
+            }
+
+            .slogan {
+                font-size: 1.2em;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>Shoe Park</h1>
+        <p class="slogan">Welcome to Shoe Park, the World of Shoes</p>
+    </header>
+    <div class="container">
+        <div class="shoe-container">
+            <h2>Adidas</h2>
+            <p>Price: $120</p>
+            <a href="#" class="btn" data-product-id="1" data-product-name="Adidas" data-product-price="$120">Add to Cart</a>
+        </div>
+        <div class="shoe-container">
+            <h2>Bata</h2>
+            <p>Price: $80</p>
+            <a href="#" class="btn" data-product-id="2" data-product-name="Bata" data-product-price="$80">Add to Cart</a>
+        </div>
+        <div class="shoe-container">
+            <h2>Puma</h2>
+            <p>Price: $100</p>
+            <a href="#" class="btn" data-product-id="3" data-product-name="Puma" data-product-price="$100">Add to Cart</a>
+        </div>
+        <div class="shoe-container">
+            <h2>Nike</h2>
+            <p>Price: $150</p>
+            <a href="#" class="btn" data-product-id="4" data-product-name="Nike" data-product-price="$150">Add to Cart</a>
+        </div>
+        <div class="shoe-container">
+            <h2>RedTape</h2>
+            <p>Price: $90</p>
+            <a href="#" class="btn" data-product-id="5" data-product-name="RedTape" data-product-price="$90">Add to Cart</a>
+        </div>
+        <div class="shoe-container">
+            <h2>Asics</h2>
+            <p>Price: $110</p>
+            <a href="#" class="btn" data-product-id="6" data-product-name="Asics" data-product-price="$110">Add to Cart</a>
+        </div>
+    </div>
+    <footer>
+        <p>This is a sample; visit us for more collections.</p>
+        <div class="cart" id="cart">
+            <p>Cart: <span id="cart-count">0</span> items</p>
+        </div>
+    </footer>
+
+    <div class="cart-content" id="cart-content">
+        <h3>Your Cart Items:</h3>
+        <ul id="cart-items-list"></ul>
+        <button id="close-cart">Close</button>
+    </div>
+
+    <script>
+        let cartCount = 0;
+        let cartItems = []; // Array to store cart items
+
+        document.querySelectorAll('.btn').forEach(button => {
+            button.addEventListener('click', function (event) {
+                event.preventDefault();
+                const productId = this.getAttribute('data-product-id');
+                const productName = this.getAttribute('data-product-name');
+                const productPrice = this.getAttribute('data-product-price');
+
+                cartCount++;
+                cartItems.push({ id: productId, name: productName, price: productPrice });
+
+                document.getElementById('cart-count').innerText = cartCount;
+                alert(`${productName} added to cart!`); // Corrected template literal
+            });
+        });
+
+        // Show cart items when cart is clicked
+        document.getElementById('cart').addEventListener('click', function () {
+            if (cartCount === 0) {
+                document.getElementById('cart-items-list').innerHTML = '<li>Your cart is empty.</li>';
+            } else {
+                const cartItemsList = document.getElementById('cart-items-list');
+                cartItemsList.innerHTML = ''; // Clear previous items
+                cartItems.forEach(item => {
+                    const listItem = document.createElement('li');
+                    listItem.innerText = `${item.name} - ${item.price}`;
+                    cartItemsList.appendChild(listItem);
+                });
+            }
+            document.getElementById('cart-content').style.display = 'block'; // Show the cart content
+        });
+
+        // Close cart content
+        document.getElementById('close-cart').addEventListener('click', function () {
+            document.getElementById('cart-content').style.display = 'none'; // Hide the cart content
+        });
+    </script>
+</body>
+
+</html>
