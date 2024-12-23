@@ -167,6 +167,7 @@
     </div>
     <footer>
         <p>This is a sample; visit us for more collections.</p>
+        <p>Offers are available during festive seasonss</p>
         <div class="cart" id="cart">
             <p>Cart: <span id="cart-count">0</span> items</p>
         </div>
@@ -180,7 +181,7 @@
 
     <script>
         let cartCount = 0;
-        let cartItems = []; // Array to store cart items
+        let cartItems = [];
 
         document.querySelectorAll('.btn').forEach(button => {
             button.addEventListener('click', function (event) {
@@ -193,27 +194,27 @@
                 cartItems.push({ id: productId, name: productName, price: productPrice });
 
                 document.getElementById('cart-count').innerText = cartCount;
-                alert(`${productName} added to cart!`); // Corrected template literal
+                alert(`${productName} added to cart!`); 
             });
         });
 
-        // Show cart items when cart is clicked
+        
         document.getElementById('cart').addEventListener('click', function () {
             if (cartCount === 0) {
                 document.getElementById('cart-items-list').innerHTML = '<li>Your cart is empty.</li>';
             } else {
                 const cartItemsList = document.getElementById('cart-items-list');
-                cartItemsList.innerHTML = ''; // Clear previous items
+                cartItemsList.innerHTML = ''; 
                 cartItems.forEach(item => {
                     const listItem = document.createElement('li');
                     listItem.innerText = `${item.name} - ${item.price}`;
                     cartItemsList.appendChild(listItem);
                 });
             }
-            document.getElementById('cart-content').style.display = 'block'; // Show the cart content
+            document.getElementById('cart-content').style.display = 'block'; 
         });
 
-        // Close cart content
+        
         document.getElementById('close-cart').addEventListener('click', function () {
             document.getElementById('cart-content').style.display = 'none'; // Hide the cart content
         });
